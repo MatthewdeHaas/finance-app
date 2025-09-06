@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard'
 import Transactions from './pages/Transactions'
 import Budget from './pages/Budget'
 import NotFound from './pages/NotFound'
+import RequiresAuth from './RequiresAuth'
+import RequiresGuest from './RequiresGuest'
 
 const App = () => {
   return (
@@ -13,11 +15,32 @@ const App = () => {
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Index />}></Route>
-        <Route path="/dashboard" element={<Dashboard />}></Route>
-        <Route path="/transactions" element={<Transactions />}></Route>
-        <Route path="/budget" element={<Budget />}></Route>
+        <Route path="/"  element={
+          <RequiresGuest>
+            <Index />
+          </RequiresGuest>
+        }></Route>
+
+        <Route path="/dashboard" element={
+          <RequiresAuth>
+            <Dashboard />
+          </RequiresAuth>
+        }></Route>
+
+        <Route path="/transactions" element={
+          <RequiresAuth>
+            <Transactions />
+          </RequiresAuth>
+        }></Route>
+
+        <Route path="/budget" element={
+          <RequiresAuth>
+            <Budget/>
+          </RequiresAuth>
+        }></Route>
+
         <Route path="*" element={<NotFound />}></Route>
+
       </Routes>
 
     </div>
