@@ -9,9 +9,10 @@
   - [x] Create routes for all endpoints
 
 3. Add login/auth
-  - [ ] Write basic landing page with login/create account forms
-  - [ ] Encrypt passwords
-  - [ ] Create auth middleware using a jwt token
+  - [x] Write basic landing page with login/create account forms
+  - [x] Encrypt passwords
+  - [x] Create auth middleware using a jwt token
+  - [x] Improve landing page setup with proper success/error messages 
 
 4. Add transactions page:
   - [ ] Create different account types form 

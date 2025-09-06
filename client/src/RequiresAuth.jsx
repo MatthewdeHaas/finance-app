@@ -1,4 +1,3 @@
-
 import { Navigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -8,12 +7,12 @@ const useAuth = () => {
   useEffect(() => {
 
     const checkAuth = async () => {
-      
+
       const me = await fetch('http://localhost:5001/api/auth/me', {
         method: "GET", 
         credentials: 'include' 
       })
-    
+
       if (me.status === 401) {
 
           const refresh = await fetch("http://localhost:5001/api/auth/refresh", {
