@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors')
 const PORT = 5001;
 const authRoutes = require("./routes/auth");
+const accountRoutes = require("./routes/accounts");
 const cookieParser = require('cookie-parser');
 
 
@@ -15,6 +16,7 @@ app.use(cors({
   credentials: true
 }));
 app.use("/api/auth", authRoutes);
+app.use("/api/account", accountRoutes);
 
 
 

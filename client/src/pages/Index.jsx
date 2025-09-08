@@ -24,7 +24,7 @@ const Index = () => {
       setMessage("Login successful");
     } else {     
         const err = await res.json();
-        setMessage("Invalid Credentials");
+        setMessage("Invalid credentials");
     }
 
     setLoading(false);

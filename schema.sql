@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS accounts (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   name TEXT NOT NULL,
+  balance NUMERIC(12, 2) DEFAULT 0,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -55,7 +56,8 @@ CREATE TABLE IF NOT EXISTS refresh_tokens (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   token TEXT NOT NULL UNIQUE,
-  created_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMP DEFAULT NOW(),
+  expires_at TIMESTAMP NOT NULL DEFAULT now() + interval '7 days'
 );
 
 

@@ -48,22 +48,41 @@ const login = async (req, res, next) => {
     const valid = await bcrypt.compare(password, user.password_hash);
     if (!valid) return res.status(401).json({ error: 'Invalid password' });
   
-
     const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken();
-    await Token.save(user.id, refreshToken);
+
+    const storedRefreshToken = await User.getRefreshToken(username);
+
+
+    if (storedRefreshToken.length < 1) {
+
+      const newRefreshToken = generateRefreshToken();
+      await Token.save(user.id, newRefreshToken);
+
+      res.cookie('refreshToken', newRefreshToken , {
+        ...cookieOptions,
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      });
+
+    } else {
+
+
+      console.log(`\n\n\n ${ storedRefreshToken } \n\n\n`)
+
+      res.cookie('refreshToken', storedRefreshToken.token , {
+        ...cookieOptions,
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      });
+        
+
+    } 
 
     res.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      sameSite: 'lax',       // or 'none' if using https
-      secure: false,
-      maxAge:  4 * 1000 // 2 seconds
+      httpOnly: true,  
+      sameSite: 'lax', // or 'none' if using https
+      secure: false,   // Set to truw in production
+      maxAge:  15 * 60 * 1000 // 15 mins
     });
     
-    res.cookie('refreshToken', refreshToken, {
-      ...cookieOptions,
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
 
     res.json({ user: { id: user.id, username: user.username } });
   } catch (err) {
@@ -129,8 +148,6 @@ const me = async (req, res, next) => {
   }
   
 };
-
-
 
 
 module.exports = { register, login, refresh, logout, me};
