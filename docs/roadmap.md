@@ -15,10 +15,8 @@
   - [x] Improve landing page setup with proper success/error messages 
 
 4. Add transactions page:
-  - [ ] Create different account types form 
-  - [ ] Form for recording expenses
-  - [ ] Form for adding funds
-  - [ ] Ensure forms include a category field and create a separate form for creating new categories
+  - [x] Create different account types form 
+  - [ ] Form for depositing/withdrawing
 
 5. Add budget page
   - [ ] Pie chart for expenses by categories

@@ -3,7 +3,11 @@ import { FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField,
 
 const UpdateBalance = () => {
   const [accounts, setAccounts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
   const [selectedAccount, setSelectedAccount] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const [amount, setAmount] = useState("");
   const [transactionType, setTransactionType] = useState(""); // default value
 
@@ -45,6 +49,20 @@ const UpdateBalance = () => {
     .catch(err => {
         console.log("Error fetching accounts")
       });
+
+    fetch("http://localhost:5001/api/category", { 
+      method: "GET",
+      headers: { 'Content-Type': 'application/json' },
+      credentials: "include",
+    })
+    .then(res => res.json())
+    .then(data => {
+        setCategories(data);
+      })
+    .catch(err => {
+        console.log("Error fetching categories")
+      });
+
   }, []);
 
   return (
@@ -53,64 +71,96 @@ const UpdateBalance = () => {
 
       <FormControl>
 
-        {/* Account Dropdown */}
-        <InputLabel id="account-select-label">Account</InputLabel>
-        <Select
-          labelId="account-select-label"
-          id="account-select"
-          value={selectedAccount}
-          onChange={(e) => setSelectedAccount(e.target.value)}
-          label="Account"
-          required
-        >
-          {accounts.map((acc, i) => (   
-          <MenuItem key={acc.id} value={acc.name}>{acc.name}</MenuItem>
-            )
-          )}
-        </Select>
+        <FormControl>
 
-        
-        {/* Deposit/Withdrawal Radio */}
-        <RadioGroup
-          row 
-          name="account-type"
-          required
-          value={transactionType}
-          onChange={(e) => setTransactionType(e.target.value)}
-        >
-          <FormControlLabel value="Withdrawal" control={<Radio />} label="Withdrawal" />
-          <FormControlLabel value="Deposit" control={<Radio />} label="Deposit" />
-        </RadioGroup>
+          {/* Account Dropdown */}
+          <InputLabel id="account-select-label">Account</InputLabel>
+          <Select
+            labelId="account-select-label"
+            id="account-select"
+            value={selectedAccount}
+            onChange={(e) => setSelectedAccount(e.target.value)}
+            label="Account"
+            required
+          >
+            {accounts.map((acc, i) => (   
+            <MenuItem key={acc.id} value={acc.name}>{acc.name}</MenuItem>
+              )
+            )}
+          </Select>
+
+        </FormControl>
 
 
-        {/* Deposit/Withdraw amount */}
-        <TextField
-          label="Amount"
-          type="number"
-          required
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          fullWidth
-          inputProps={{ min: 0}}
-          sx={{
-            "& input[type=number]::-webkit-outer-spin-button": {
-              WebkitAppearance: "none",
-              margin: 0,
-            },
-            "& input[type=number]::-webkit-inner-spin-button": {
-              WebkitAppearance: "none",
-              margin: 0,
-            },
-            "& input[type=number]": {
-              MozAppearance: "textfield",
-            },
-          }}
-        >      
-        </TextField>
-        <Button type="submit" variant="outlined">
-          {transactionType || "Select Transaction Type"}
-        </Button>
+        <FormControl>
 
+          {/* Category */}
+          <InputLabel id="category-select-label">Category</InputLabel>
+          <Select
+            labelId="category-select-label"
+            id="category-select"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            label="Category"
+          >
+            {categories.map((acc, i) => (   
+            <MenuItem key={i} value={acc.name}>{acc.name}</MenuItem>
+              )
+            )}
+          </Select>
+
+        </FormControl>
+
+
+        <FormControl>
+
+          {/* Deposit/Withdrawal Radio */}
+          <RadioGroup
+            row 
+            name="account-type"
+            required
+            value={transactionType}
+            onChange={(e) => setTransactionType(e.target.value)}
+          >
+            <FormControlLabel value="Withdrawal" control={<Radio />} label="Withdrawal" />
+            <FormControlLabel value="Deposit" control={<Radio />} label="Deposit" />
+          </RadioGroup>
+
+        </FormControl>
+
+
+        <FormControl>
+
+          {/* Deposit/Withdraw amount */}
+          <TextField
+            label="Amount"
+            type="number"
+            required
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            fullWidth
+            inputProps={{ min: 0}}
+            sx={{
+              "& input[type=number]::-webkit-outer-spin-button": {
+                WebkitAppearance: "none",
+                margin: 0,
+              },
+              "& input[type=number]::-webkit-inner-spin-button": {
+                WebkitAppearance: "none",
+                margin: 0,
+              },
+              "& input[type=number]": {
+                MozAppearance: "textfield",
+              },
+            }}
+          >      
+          </TextField>
+          <Button type="submit" variant="outlined">
+            {transactionType || "Select Transaction Type"}
+          </Button>
+
+
+        </FormControl>
       </FormControl>    
 
     </form>

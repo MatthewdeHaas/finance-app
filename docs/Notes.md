@@ -11,4 +11,6 @@
 
 
 ## TODO
-- [ ] All the accounts list in the transactions page to listen for new accounts/updated balances
+  - [x] Add a category input field to withdraw/deposit
+  - [ ] Record transaction in the transactions table as well as accounts
+  - [ ] Allow the accounts list in the transactions page to listen for new accounts/updated balances

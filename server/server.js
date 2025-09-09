@@ -5,6 +5,7 @@ const cors = require('cors')
 const PORT = 5001;
 const authRoutes = require("./routes/auth");
 const accountRoutes = require("./routes/accounts");
+const categoryRoutes = require("./routes/category");
 const cookieParser = require('cookie-parser');
 
 
@@ -17,6 +18,7 @@ app.use(cors({
 }));
 app.use("/api/auth", authRoutes);
 app.use("/api/account", accountRoutes);
+app.use("/api/category", categoryRoutes);
 
 
 

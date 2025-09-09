@@ -11,7 +11,7 @@ const create = async (token, name) => {
         AND NOT EXISTS (
         SELECT 1
         FROM accounts a
-        WHERE a.user_id = u.user_id
+        WHERE a.user_id = u.id
           AND a.name = $2
       );
     `, [token, name]);
@@ -34,12 +34,6 @@ const getAccounts = async (token) => {
 
 const updateBalance = async (token, account, amount, type) => {
 
-
-  console.log(`\n token: ${ token } \n`)
-  console.log(`\n account: ${ account } \n`)
-  console.log(`\n amount: ${ amount } \n`)
-  console.log(`\n type: ${ type } \n`)
-
   amount = parseInt(amount);
     
   if (type === "Withdrawal") amount *= -1; 
@@ -58,4 +52,4 @@ const updateBalance = async (token, account, amount, type) => {
 
 };
 
-module.exports = { create, getAccounts, updateBalance}
+module.exports = { create, getAccounts, updateBalance};

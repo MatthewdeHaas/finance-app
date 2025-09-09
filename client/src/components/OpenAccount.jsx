@@ -29,7 +29,7 @@ const OpenAccount = () => {
             placeholder="e.g. chequing" 
             required
             value={accountName}
-            autocomplete="off"
+            autoComplete="off"
             onChange={(e) => setAccountName(e.target.value)}
             >
           </TextField> 

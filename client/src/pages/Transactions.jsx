@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import OpenAccount from '../components/OpenAccount'
+import CreateCategory from '../components/CreateCategory'
 import UpdateBalance from '../components/UpdateBalance'
 import Accounts from '../components/Accounts'
 
@@ -15,10 +16,16 @@ const Transactions = () => {
       <div className="flex flex-row justify-between px-24">  
 
 
-      {/*  Create Account  */}
+      {/* Open Account  */}
         <div className="flex flex-col px-12 py-4 space-y-6">
           <p>Open a New Account</p>
           <OpenAccount />  
+        </div>
+
+      {/* Create Category */}
+        <div className="flex flex-col px-12 py-4 space-y-6">
+          <p>Create Category</p>
+          <CreateCategory />  
         </div>
     
       {/* Record Expense  */}

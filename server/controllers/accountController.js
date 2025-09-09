@@ -18,6 +18,7 @@ const getAccounts = async (req, res, next) => {
       const token = req.cookies.refreshToken;
 
       const accounts = await Account.getAccounts(token);
+
       res.status(201).json(accounts);
   } catch (err) {
     next()
@@ -39,4 +40,4 @@ const updateBalance = async (req, res, next) => {
 
 
 
-module.exports = { createAccount, getAccounts, updateBalance }
+module.exports = { createAccount, getAccounts, updateBalance };
