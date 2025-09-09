@@ -8,16 +8,18 @@ const create = async (token, name) => {
       FROM users u
       INNER JOIN refresh_tokens rt ON u.id = rt.user_id
       WHERE rt.token = $1;
+        AND NOT EXISTS (
+        SELECT 1
+        FROM accounts a
+        WHERE a.user_id = u.user_id
+          AND a.name = $2
+      );
     `, [token, name]);
 
     return result.rows;
 };
 
 const getAccounts = async (token) => {
-
-
-  // TODO: Currently returning empty - fix
-  // Cookies are fine
   
   const result = await pool.query(`
     SELECT a.name, a.balance
@@ -30,4 +32,30 @@ const getAccounts = async (token) => {
 
 };
 
-module.exports = { create, getAccounts }
+const updateBalance = async (token, account, amount, type) => {
+
+
+  console.log(`\n token: ${ token } \n`)
+  console.log(`\n account: ${ account } \n`)
+  console.log(`\n amount: ${ amount } \n`)
+  console.log(`\n type: ${ type } \n`)
+
+  amount = parseInt(amount);
+    
+  if (type === "Withdrawal") amount *= -1; 
+
+  const result = await pool.query(`
+    UPDATE accounts a
+    SET balance = balance + $1
+    FROM refresh_tokens rt
+    WHERE a.user_id = rt.user_id
+      AND rt.token = $2
+      AND a.name = $3
+    RETURNING *;
+  `, [amount, token, account]) 
+
+  return result.rows[0]; 
+
+};
+
+module.exports = { create, getAccounts, updateBalance}

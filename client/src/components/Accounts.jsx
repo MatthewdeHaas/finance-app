@@ -25,22 +25,33 @@ const Accounts = () => {
 
   if (loading) return <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>;
 
-  return (
-    
-    <div className="flex flex-col space-y-6">
-      <p className={`${ accounts.length === 0 ? "" : "hidden" }`}>No Accounts</p>      
+  if (accounts.length === 0) return <p>No Accounts Created</p>;
 
+  return (
+    <>
       {accounts.map((acc, i) => (
         <div key={i} className="p-2 border-2 border-neutral-500 rounded-md">
           <p className="font-bold">{acc.name}</p>
-          <span>Balance: {acc.balance}</span>
+          <span className="flex flex-row space-x-2">
+            <p>Balance: </p>
+            <p
+              className={`${
+                parseInt(acc.balance, 10) > 0
+                  ? "text-green-500"
+                  : parseInt(acc.balance, 10) < 0
+                  ? "text-red-500"
+                  : "text-black"
+              }`}
+            >
+              ${acc.balance}
+            </p>
+          </span>
         </div>
       ))} 
+    </>     
+  );
 
-    </div>
-
-  )
-
+// className={`border-b-2 ${activeTab === "login" ? "border-blue-500 font-bold" : "border-gray-200"}`}
 };
 
 

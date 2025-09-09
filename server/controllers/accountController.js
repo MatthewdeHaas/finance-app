@@ -17,14 +17,26 @@ const getAccounts = async (req, res, next) => {
     try {
       const token = req.cookies.refreshToken;
 
-      // console.log(`\n\n\n Token: ${ req.cookies.refreshToken } \n\n\n`)
-
       const accounts = await Account.getAccounts(token);
       res.status(201).json(accounts);
-
   } catch (err) {
     next()
   }
 };
 
-module.exports = { createAccount, getAccounts}
+
+const updateBalance = async (req, res, next) => {
+  try {
+    const { account, amount, type } = req.body;
+    const token = req.cookies.refreshToken;
+
+    const update = await Account.updateBalance(token, account, amount, type);
+    res.status(201).json(update); 
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+
+module.exports = { createAccount, getAccounts, updateBalance }

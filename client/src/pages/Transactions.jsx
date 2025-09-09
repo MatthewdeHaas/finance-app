@@ -1,54 +1,42 @@
 import { useState } from 'react';
+import OpenAccount from '../components/OpenAccount'
+import UpdateBalance from '../components/UpdateBalance'
 import Accounts from '../components/Accounts'
 
 const Transactions = () => {
 
-
-  const [accountName, setAccountName] = useState("");
-  const [accountList, setAccountList] = useState(null);
-
-  const createAccount = async (e) => {
-    e.preventDefault();
-
-    const res = await fetch("http://localhost:5001/api/account/create", {
-      method: "POST",
-      credentials: "include", 
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: accountName })
-    }
-    );
-
-  }
-
   return (
-    <div className="flex flex-row justify-between px-24">
+    
+    <div className="flex flex-col text-center">
 
-      {/* Create Account */}
-      <form className="flex flex-col p-12 space-y-6" onSubmit={createAccount}>
-        Create new account
-        
-        <input className="border-2 border-blue-500 rounded-md p-2"
-               type="text"
-               placeholder="e.g. chequing" 
-               value={accountName}
-               onChange={(e) => setAccountName(e.target.value)}
-        />
-        <button type="submit" className="border-2 border-blue-500 rounded-md p-2">Open Account</button>
-      
-      </form>
+      <p className="text-4xl font-semi-bold p-2">
+        Transactions
+      </p>
+      <div className="flex flex-row justify-between px-24">  
 
-     {/* Record Expense  */}
-      <form className="flex flex-col p-12 space-y-6">
-        Record Expense 
-      </form>
 
-      {/* Account list */}
-      <div className="flex flex-col p-12 space-y-6">
-        <p>Accounts</p>
-         <Accounts /> 
-      </div>  
+      {/*  Create Account  */}
+        <div className="flex flex-col px-12 py-4 space-y-6">
+          <p>Open a New Account</p>
+          <OpenAccount />  
+        </div>
+    
+      {/* Record Expense  */}
+        <div className="flex flex-col px-12 py-4 space-y-6">
+          <p>Make Deposit/Withdrawal</p>
+          <UpdateBalance />  
+        </div>
+
+        {/* Account list */}
+        <div className="flex flex-col px-12 py-4 space-y-6">
+          <p>Accounts</p>
+          <Accounts /> 
+        </div>  
+
+      </div>
 
     </div>
+
   );
 };
 

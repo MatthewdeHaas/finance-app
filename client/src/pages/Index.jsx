@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-
 const Index = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("")
@@ -57,6 +56,11 @@ const Index = () => {
   return (
 
     <div className="flex flex-col max-w-md mx-auto mt-4 space-y-6">
+
+
+      <p className="text-3xl font-semi-bold">
+        Finance App
+      </p>
 
       {/* Menu */}
       <div className="flex flex-row space-x-4">

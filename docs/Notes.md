@@ -11,9 +11,4 @@
 
 
 ## TODO
-  - [x] Ensue refresh tokens are only minted if they don't already exist for a given user on login  
-  - [ ] Implement create account form so getting the accounts can be properly tested 
-  - [ ] Front end is fetching accounts on mount (I think), but not returning the correct value. Fix
-  - [ ] Implement account creation and expense recording as components
-  - [ ] Handle duplicate names on registration
-
+- [ ] All the accounts list in the transactions page to listen for new accounts/updated balances
