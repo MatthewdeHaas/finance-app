@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-const Accounts = () => {
+const AccountList = () => {
   const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,8 +50,7 @@ const Accounts = () => {
     </>     
   );
 
-// className={`border-b-2 ${activeTab === "login" ? "border-blue-500 font-bold" : "border-gray-200"}`}
 };
 
 
-export default Accounts;
+export default AccountList;

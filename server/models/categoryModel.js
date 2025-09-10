@@ -17,11 +17,7 @@ const get = async (token) => {
 };
 
 const create = async (token, name) => {
-
-  // console.log(token);
-  // console.log(name);
   
-
   const result = await pool.query(`
     INSERT INTO categories (user_id, name)
     SELECT u.id, $2
@@ -35,8 +31,6 @@ const create = async (token, name) => {
         AND c.name = $2
       )
   `, [token, name])
-
-  console.log("\nrows:", JSON.stringify(result.rows, null, 2), "\n");
 
   return result.rows;
 

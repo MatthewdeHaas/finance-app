@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
   <nav className="flex gap-4 p-4 bg-white shadow">
       <Link to="/dashboard">Dashboard</Link>
-      <Link to="/transactions">Transactions</Link>
+      <Link to="/accounts">Accounts</Link>
       <Link to="/budget">Budget</Link>
       <button onClick={logout}>Logout</button>
   </nav>

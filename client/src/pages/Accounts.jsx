@@ -2,7 +2,8 @@ import { useState } from 'react';
 import OpenAccount from '../components/OpenAccount'
 import CreateCategory from '../components/CreateCategory'
 import UpdateBalance from '../components/UpdateBalance'
-import Accounts from '../components/Accounts'
+import AccountList from '../components/AccountList'
+import TransactionHistory from '../components/TransactionHistory'
 
 const Transactions = () => {
 
@@ -11,7 +12,7 @@ const Transactions = () => {
     <div className="flex flex-col text-center">
 
       <p className="text-4xl font-semi-bold p-2">
-        Transactions
+        Accounts
       </p>
       <div className="flex flex-row justify-between px-24">  
 
@@ -37,7 +38,13 @@ const Transactions = () => {
         {/* Account list */}
         <div className="flex flex-col px-12 py-4 space-y-6">
           <p>Accounts</p>
-          <Accounts /> 
+          <AccountList /> 
+        </div>  
+
+        {/* Transaction History */}
+        <div className="flex flex-col px-12 py-4 space-y-6">
+          <p>Transaction History</p>
+          <TransactionHistory /> 
         </div>  
 
       </div>

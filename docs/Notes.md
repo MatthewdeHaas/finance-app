@@ -12,5 +12,8 @@
 
 ## TODO
   - [x] Add a category input field to withdraw/deposit
-  - [ ] Record transaction in the transactions table as well as accounts
+  - [ ] Transactions:
+    - [ ] Record and test in database 
+    - [ ] Display on the screen beside accounts
+    - [ ] Allow accounts to be clicked and transactions to be filtered by them
   - [ ] Allow the accounts list in the transactions page to listen for new accounts/updated balances

@@ -1,4 +1,5 @@
 const pool = require('../db');
+const Transaction = require('./transactionModel') 
 
 const create = async (token, name) => {  
 
@@ -32,13 +33,13 @@ const getAccounts = async (token) => {
 
 };
 
-const updateBalance = async (token, account, amount, type) => {
+const updateBalance = async (token, account, amount, category, type) => {
 
   amount = parseInt(amount);
     
   if (type === "Withdrawal") amount *= -1; 
 
-  const result = await pool.query(`
+  const accountQuery = await pool.query(`
     UPDATE accounts a
     SET balance = balance + $1
     FROM refresh_tokens rt
@@ -46,9 +47,11 @@ const updateBalance = async (token, account, amount, type) => {
       AND rt.token = $2
       AND a.name = $3
     RETURNING *;
-  `, [amount, token, account]) 
+  `, [amount, token, account]); 
 
-  return result.rows[0]; 
+  const transactions = await Transaction.create(token, account, amount, category, type);
+
+  return accountQuery.rows[0]; 
 
 };
 

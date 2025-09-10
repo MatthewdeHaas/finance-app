@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   category_id INTEGER,
   amount NUMERIC(12, 2) NOT NULL,
   date TIMESTAMP DEFAULT NOW(),
-  recurring_date DATE,
+  transaction_type TEXT CHECK (transaction_type IN ('Deposit', 'Withdrawal')),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY (account_id) REFERENCES accounts(id) ON DELETE CASCADE,
   FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE

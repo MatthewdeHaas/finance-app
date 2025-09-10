@@ -4,8 +4,9 @@ const app = express();
 const cors = require('cors')
 const PORT = 5001;
 const authRoutes = require("./routes/auth");
-const accountRoutes = require("./routes/accounts");
+const accountRoutes = require("./routes/account");
 const categoryRoutes = require("./routes/category");
+const transactionRoutes = require("./routes/transaction");
 const cookieParser = require('cookie-parser');
 
 
@@ -19,6 +20,7 @@ app.use(cors({
 app.use("/api/auth", authRoutes);
 app.use("/api/account", accountRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/transaction", transactionRoutes);
 
 
 

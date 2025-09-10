@@ -23,6 +23,7 @@ const UpdateBalance = () => {
         body: JSON.stringify({
           account: selectedAccount,
           amount: amount,
+          category: selectedCategory,
           type: transactionType
         })
       });

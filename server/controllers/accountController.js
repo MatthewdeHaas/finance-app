@@ -28,10 +28,10 @@ const getAccounts = async (req, res, next) => {
 
 const updateBalance = async (req, res, next) => {
   try {
-    const { account, amount, type } = req.body;
+    const { account, amount, category, type } = req.body;
     const token = req.cookies.refreshToken;
 
-    const update = await Account.updateBalance(token, account, amount, type);
+    const update = await Account.updateBalance(token, account, amount, category, type);
     res.status(201).json(update); 
   } catch (err) {
     next(err);

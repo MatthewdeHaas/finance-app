@@ -22,11 +22,6 @@ const createCategory = async (req, res, next) => {
     const token = req.cookies.refreshToken;
     const { category } = req.body;
 
-  // TODO: Token is 'undefined'
-
-    console.log(token);
-    console.log(category);
-
     const result = await Category.create(token, category);
 
     res.status(201).json(result);

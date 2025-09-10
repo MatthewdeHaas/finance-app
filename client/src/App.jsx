@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar'
 import Index from './pages/Index'
 import Dashboard from './pages/Dashboard'
-import Transactions from './pages/Transactions'
+import Accounts from './pages/Accounts'
 import Budget from './pages/Budget'
 import NotFound from './pages/NotFound'
 import RequiresAuth from './RequiresAuth'
@@ -27,9 +27,9 @@ const App = () => {
           </RequiresAuth>
         }></Route>
 
-        <Route path="/transactions" element={
+        <Route path="/accounts" element={
           <RequiresAuth>
-            <Transactions />
+            <Accounts />
           </RequiresAuth>
         }></Route>
 
