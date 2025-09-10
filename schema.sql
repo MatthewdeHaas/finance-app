@@ -44,11 +44,13 @@ CREATE TABLE IF NOT EXISTS transactions (
 CREATE TABLE IF NOT EXISTS budgets (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
-  category_id INTEGER,
+  category_id INTEGER NOT NULL,
   threshold NUMERIC(12, 2) NOT NULL,
-  period TEXT CHECK (period IN ('weekly', 'monthly')),
+  period TEXT NOT NULL CHECK (period IN ('weekly', 'monthly')),
+  date TIMESTAMP DEFAULT NOW(),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
+  CONSTRAINT unique_user_category_period UNIQUE (user_id, category_id, period)
 );
 
 

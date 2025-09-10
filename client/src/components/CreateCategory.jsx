@@ -3,7 +3,7 @@ import { FormControl, TextField, Button} from '@mui/material';
 
 
 const CreateCategory = () => {
-  const [category, setCategory] = useState("");
+  const [name, setName] = useState("");
 
   const create = async (e) => {
     e.preventDefault();
@@ -12,7 +12,7 @@ const CreateCategory = () => {
       method: "POST",
       credentials: "include",
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ category: category })
+      body: JSON.stringify({ name: name })
     });
 
   };
@@ -22,13 +22,15 @@ const CreateCategory = () => {
 
       <FormControl>
 
+        {/* Name */}
         <TextField
           type="text"
+          label="Name"
           placeholder="e.g. grocerices, recreaction" 
           required
-          value={category}
+          value={name}
           autoComplete="off"
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           >
         </TextField> 
 

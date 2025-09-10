@@ -20,9 +20,9 @@ const createCategory = async (req, res, next) => {
 
   try {
     const token = req.cookies.refreshToken;
-    const { category } = req.body;
+    const { name } = req.body;
 
-    const result = await Category.create(token, category);
+    const result = await Category.create(token, name);
 
     res.status(201).json(result);
   } catch (err) {

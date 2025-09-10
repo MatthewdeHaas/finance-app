@@ -20,10 +20,7 @@ const get = async (token) => {
       ON t.category_id = c.id
     WHERE rt.token = $1;
   `, [token]); 
-
-
-  console.log(transactions.rows);
-    
+ 
   return transactions.rows;
 
 };
@@ -40,8 +37,6 @@ const create = async (token, account, amount, category, type) => {
     WHERE rt.token = $1
     RETURNING *;
   `, [token, account, amount, category, type])
-
-  console.log(transaction.rows)
 
   return transaction.rows;
 

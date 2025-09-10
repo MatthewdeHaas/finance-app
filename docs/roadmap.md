@@ -16,7 +16,7 @@
 
 4. Add transactions page:
   - [x] Create different account types form 
-  - [ ] Form for depositing/withdrawing
+  - [x] Form for depositing/withdrawing
 
 5. Add budget page
   - [ ] Pie chart for expenses by categories
