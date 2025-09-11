@@ -11,7 +11,8 @@ const PieChart = () => {
       series: [],
       options: {
         chart: {
-          width: 640,
+          width: '100%',
+          height: '75%',
           type: 'pie',
         },
         labels: [],
@@ -44,6 +45,10 @@ useEffect(() => {
       series: transactions.map((t) => Number(t.volume) || 0),
       options: {
         labels: transactions.map((t) => String(t.category_name)),
+          chart: {
+            width: '100%',
+            height: '75%',
+          }
       },
     });
   }

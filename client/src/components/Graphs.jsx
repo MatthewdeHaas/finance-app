@@ -8,12 +8,13 @@ const Graphs = () => {
   
   return (
 
-    <div className="flex flex-row space-x-6">
-      <div>
-        <p>Expenses by category</p>
+    <div className="flex flex-row justify-between space-x-6">
+      <div className="flex-1">
+        <p>Expenses By Category</p>
         <PieChart />
       </div>
-      <div>
+      <div className="flex-1">
+        <p>Expenses With Budgets</p>
         <BarGraph />
       </div>
     </div>
