@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -20,9 +20,9 @@ const Navbar = () => {
 
   return (
   <nav className="flex gap-4 p-4 bg-white shadow">
-      <Link to="/dashboard">Dashboard</Link>
-      <Link to="/accounts">Accounts</Link>
-      <Link to="/budget">Budget</Link>
+      <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "underline font-bold" : "")}>Dashboard</NavLink>
+      <NavLink to="/accounts" className={({ isActive }) => (isActive ? "underline font-bold" : "")}>Accounts</NavLink>
+      <NavLink to="/budget" className={({ isActive }) => (isActive ? "underline font-bold" : "")}>Budget</NavLink>
       <button onClick={logout}>Logout</button>
   </nav>
   );

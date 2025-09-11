@@ -2,71 +2,72 @@ import { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
 
-// TODO:
-// - Get expenses/withdrawals by category
-// - Graph categories on the pie chart by category
-
-
 const PieChart = () => {
-  const [categories, setCategories] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [chartData] = useState({
-
-          series: [
-      {
-        name: "Balance",
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148], // your data here
+  // Initialize the chart
+  const [chart, setChart] = useState({
+      series: [],
+      options: {
+        chart: {
+          width: 640,
+          type: 'pie',
+        },
+        labels: [],
       },
-    ],
-    options: {
-      chart: {
-        type: "line",
-        height: 350,
-      },
-      xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      title: {
-        text: "Account Balance Over Time",
-        align: "center",
-      },
-    },
-
-
   });
 
+  // Get transactions
   useEffect(() => {
 
-    fetch("http://localhost:5001/api/category", { 
-      method: "GET",
+    fetch("http://localhost:5001/api/category/aggregate", { 
+      method: "POST",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
+      body: JSON.stringify({ type: 'Withdrawal' })
     })
     .then(res => res.json())
     .then(data => {
-        setCategories(data);
+        setTransactions(data);
       })
     .catch(err => {
-        console.log("Error fetching categories")
+        console.log("Error fetching transactions")
       });
 
   }, []);    
 
+// Wait for the transactions hook to change
+useEffect(() => {
+  if (transactions.length > 0) {
+    setChart({
+      series: transactions.map((t) => Number(t.volume) || 0),
+      options: {
+        labels: transactions.map((t) => String(t.category_name)),
+      },
+    });
+  }
+}, [transactions]);
 
 
   if (loading) return <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>;
 
   return (
-    <Chart 
-      options={chartData.options}
-      series={chartData.series}
-      type="line"
-      height={350}
-    />
+    <>
+
+      <Chart 
+        options={chart.options}
+        series={chart.series}
+        type="pie"
+        height={640}
+      />
+      {transactions.map((acc, i) => (
+        <div>
+          {acc.category_name}: ${acc.volume}
+        </div> 
+      ))}
+
+    </>
   )
 
 };

@@ -32,4 +32,21 @@ const createCategory = async (req, res, next) => {
 };
 
 
-module.exports = { getCategories, createCategory };
+const aggregateAmountByCategory = async (req, res, next) => {
+
+  
+  try { 
+    const token = req.cookies.refreshToken;
+    const { type } = req.body;
+
+    const result = await Category.aggregateAmountByCategory (token, type);
+
+    res.status(201).json(result);
+  } catch (err) {
+      next(err);
+  }
+
+};
+
+
+module.exports = { getCategories, createCategory, aggregateAmountByCategory };

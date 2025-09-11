@@ -37,5 +37,22 @@ const create = async (token, name) => {
 };
 
 
+const aggregateAmountByCategory = async (token, type) => {
 
-module.exports = { get, create };
+  const agg = await pool.query(`
+    SELECT c.name as category_name, ABS(SUM(t.amount)) as volume
+    FROM categories c
+    INNER JOIN refresh_tokens rt ON c.user_id = rt.user_id
+    INNER JOIN transactions t ON c.id = t.category_id
+    WHERE rt.token = $1
+    AND t.transaction_type = $2
+    GROUP BY c.name
+  `, [token, type])
+
+  return agg.rows;
+
+};
+
+
+module.exports = { get, create, aggregateAmountByCategory };
+

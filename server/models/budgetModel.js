@@ -10,7 +10,6 @@ const get = async (token) => {
     WHERE rt.token = $1;
   `, [token]);
 
-  console.log(`\n${ budget.rows }\n`)
 
   return budgets.rows;
   

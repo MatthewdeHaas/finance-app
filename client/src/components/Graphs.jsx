@@ -10,6 +10,7 @@ const Graphs = () => {
 
     <div className="flex flex-row space-x-6">
       <div>
+        <p>Expenses by category</p>
         <PieChart />
       </div>
       <div>
