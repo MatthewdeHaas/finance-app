@@ -4,7 +4,7 @@ import UpdateBalance from '../components/UpdateBalance'
 import AccountList from '../components/AccountList'
 import TransactionHistory from '../components/TransactionHistory'
 
-const Transactions = () => {
+const Accounts = () => {
 
   return (
     
@@ -13,8 +13,8 @@ const Transactions = () => {
       <p className="text-4xl font-semi-bold p-2">
         Accounts
       </p>
-      <div className="flex flex-row justify-between px-24">  
 
+      <div className="flex flex-row justify-between px-24">  
 
         {/* Open Account  */}
         <div className="flex flex-col px-12 py-4 space-y-6">
@@ -43,7 +43,7 @@ const Transactions = () => {
         {/* Transaction History */}
         <div className="flex flex-col px-12 py-4 space-y-6">
           <p>Transaction History</p>
-          <TransactionHistory /> 
+          <TransactionHistory num_transactions={null} /> 
         </div>  
 
       </div>
@@ -54,4 +54,4 @@ const Transactions = () => {
 };
 
 
-export default Transactions;
+export default Accounts;

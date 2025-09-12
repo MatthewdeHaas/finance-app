@@ -1,7 +1,7 @@
 const pool = require('../db');
 
 
-const get = async (token) => {
+const get = async (token, num) => {
 
   const transactions = await pool.query(`
     SELECT 
@@ -10,7 +10,8 @@ const get = async (token) => {
       t.transaction_type,
       t.date,
       a.name AS account_name,
-      c.name AS category_name
+      c.name AS category_name,
+      TO_CHAR(t.date, 'YYYY-MM-DD') as date1
     FROM transactions t
     INNER JOIN refresh_tokens rt 
       ON t.user_id = rt.user_id
@@ -18,8 +19,10 @@ const get = async (token) => {
       ON t.account_id = a.id
     LEFT JOIN categories c 
       ON t.category_id = c.id
-    WHERE rt.token = $1;
-  `, [token]); 
+    WHERE rt.token = $1
+    ORDER BY date DESC    
+    LIMIT NULLIF($2::INT, 0);
+  `, [token, num]); 
  
   return transactions.rows;
 
@@ -43,4 +46,23 @@ const create = async (token, account, amount, category, type) => {
 }
 
 
-module.exports = { get, create };
+const monthlySpending = async (token) => {
+
+
+  const monthlySpending = await pool.query(`
+    SELECT 
+      ABS(SUM(t.amount)) as amount,
+      COUNT(*) as num_transactions
+    FROM transactions t
+    INNER JOIN refresh_tokens rt ON rt.user_id = t.user_id
+    WHERE rt.token = $1
+      AND date_trunc('month', t.date) = date_trunc('month', NOW())
+    AND t.transaction_type = 'Withdrawal';
+  `, [token])
+
+  return monthlySpending.rows[0];  
+
+};
+
+
+module.exports = { get, create, monthlySpending };

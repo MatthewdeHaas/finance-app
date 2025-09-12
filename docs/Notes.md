@@ -13,13 +13,19 @@
 ## TODO
 
 ### Now:
-  - [x] Add a category input field to withdraw/deposit
-  - [x] Transactions:
-    - [x] Record and test in database 
-    - [x] Display on the screen beside accounts
-  - [x] Pie chart for total expenses by category
-  - [ ] Horizontal bar graph for expenses by categories with annotated by budget threshold per category
+- [ ] Dashboard:
+  - [x] High level overview:
+    - [x] Net balance (sum of all accounts)
+    - [x] Total spent this week/month 
+    - [x] Budget summary (1/5 budgets are overspending)
+  - [x] Five most recent transactions
+  - [ ] Trend line for spending per day over the month
+  - [ ] List categories with budgets
 
 ### Later:
+- [ ] Normalized 'accounts' table
+  - [ ] Remove 'balance' column from the 'accounts' table
+  - [ ] Adjusted queries that use balance so that it instead sums transactions with the associated account id
+- [ ] Filter graphs by month
 - [ ] Allow accounts to be clicked and transactions to be filtered by them
 - [ ] Allow the accounts list in the transactions page to listen for new accounts/updated balances

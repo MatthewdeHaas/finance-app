@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 
 
-const TransactionHistory = () => {
+const TransactionHistory = (props) => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
 
     fetch("http://localhost:5001/api/transaction", {
-      method: "GET",
+      method: "POST",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
+      body: JSON.stringify({ num: props.num_transactions })
     }).then(res => res.json())
       .then(data => {
         setTransactions(data);
@@ -34,14 +35,6 @@ const TransactionHistory = () => {
         transactions.map((acc, i) => (
           <div key={i} className="p-2 border-2 border-neutral-500 rounded-md">
             <span className="flex flex-row space-x-2">
-              <p>{acc.transaction_type}: </p>
-              <p
-                className={`${ acc.transaction_type === "Deposit" ? "text-green-500" : "text-red-500"}`}
-              >
-                ${acc.amount}
-              </p>
-            </span>
-            <span className="flex flex-row space-x-2">
               <p className="font-bold">Account: </p>
               <p>{acc.account_name}</p>
             </span>
@@ -49,7 +42,18 @@ const TransactionHistory = () => {
               <p className="font-bold">Category: </p>
               <p>{!acc.category_name ? "None" : acc.category_name}</p>
             </span>
-            <p className="font-bold">Date: {acc.date}</p>
+            <span className="flex flex-row space-x-2">
+              <p>{acc.transaction_type}: </p>
+              <p className={`${ acc.transaction_type === "Deposit" ? "text-green-500" : "text-red-500"}`}>
+              <p>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(acc.amount)}</p>
+              </p>
+            </span>
+            <p>{`${new Date(acc.date).toLocaleDateString("en-US", {
+                  year: "numeric", 
+                  month: "long", 
+                  day: "numeric"})
+            }`}
+            </p>
           </div>
           )
         )

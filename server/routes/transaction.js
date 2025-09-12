@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { getTransactions } = require('../controllers/transactionController');
+const { getTransactions, monthlySpending } = require('../controllers/transactionController');
 
-router.get("/", getTransactions);
+router.post("/", getTransactions);
+router.get("/monthly-spending", monthlySpending);
 
 module.exports = router;

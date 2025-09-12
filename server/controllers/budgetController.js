@@ -26,4 +26,16 @@ const createBudget = async (req, res, next) => {
 
 };
 
-module.exports = { getBudget, createBudget  };
+const pastThreshold = async (req, res, next) => {
+
+    try {
+      const token = req.cookies.refreshToken;
+      const budgets = await Budget.pastThreshold(token);
+      res.status(201).json(budgets);
+  } catch (err) {
+      next(err);
+  }
+
+};
+
+module.exports = { getBudget, createBudget, pastThreshold };

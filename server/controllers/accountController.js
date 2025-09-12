@@ -4,7 +4,6 @@ const createAccount = async (req, res, next) => {
     try {
     const token = req.cookies.refreshToken;
     const { name } = req.body;
-      
     const account = await Account.create(token, name);
     res.status(201).json(account);
   } catch (err) {
@@ -16,9 +15,7 @@ const createAccount = async (req, res, next) => {
 const getAccounts = async (req, res, next) => {
     try {
       const token = req.cookies.refreshToken;
-
       const accounts = await Account.getAccounts(token);
-
       res.status(201).json(accounts);
   } catch (err) {
     next()
@@ -30,7 +27,6 @@ const updateBalance = async (req, res, next) => {
   try {
     const { account, amount, category, type } = req.body;
     const token = req.cookies.refreshToken;
-
     const update = await Account.updateBalance(token, account, amount, category, type);
     res.status(201).json(update); 
   } catch (err) {
@@ -38,6 +34,15 @@ const updateBalance = async (req, res, next) => {
   }
 };
 
+const netBalance = async (req, res, next) => {
+  try {
+    const token = req.cookies.refreshToken;
+    const netBalance = await Account.netBalance(token);
+    res.status(201).json(netBalance); 
+  } catch (err) {
+    next(err);
+  }
+};
 
 
-module.exports = { createAccount, getAccounts, updateBalance };
+module.exports = { createAccount, getAccounts, updateBalance, netBalance };

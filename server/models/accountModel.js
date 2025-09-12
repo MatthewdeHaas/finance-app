@@ -33,6 +33,7 @@ const getAccounts = async (token) => {
 
 };
 
+
 const updateBalance = async (token, account, amount, category, type) => {
 
   amount = parseInt(amount);
@@ -55,4 +56,23 @@ const updateBalance = async (token, account, amount, category, type) => {
 
 };
 
-module.exports = { create, getAccounts, updateBalance};
+
+
+const netBalance = async (token) => {
+
+  const netBalance = await pool.query(`
+    SELECT SUM(a.balance) as amount
+    FROM accounts a
+    INNER JOIN refresh_tokens rt ON a.user_id = rt.user_id
+    WHERE rt.token = $1
+   `, [token])
+
+
+  return netBalance.rows[0];
+
+};
+
+
+
+
+module.exports = { create, getAccounts, updateBalance, netBalance };
