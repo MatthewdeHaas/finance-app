@@ -19,8 +19,8 @@
     - [x] Total spent this week/month 
     - [x] Budget summary (1/5 budgets are overspending)
   - [x] Five most recent transactions
+  - [x] List categories with budgets
   - [ ] Trend line for spending per day over the month
-  - [ ] List categories with budgets
 
 ### Later:
 - [ ] Normalized 'accounts' table

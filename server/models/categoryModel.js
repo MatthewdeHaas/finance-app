@@ -40,14 +40,14 @@ const create = async (token, name) => {
 const aggregateAmountByCategory = async (token, type) => {
 
   const agg = await pool.query(`
-    SELECT c.name as category_name, ABS(SUM(t.amount)) as volume, b.threshold
+    SELECT c.name as category_name, ABS(SUM(t.amount)) as volume, b.threshold, b.period
     FROM categories c
     INNER JOIN refresh_tokens rt ON c.user_id = rt.user_id
     INNER JOIN transactions t ON c.id = t.category_id
     LEFT JOIN budgets b ON b.user_id = c.user_id AND b.category_id = c.id
     WHERE rt.token = $1
     AND t.transaction_type = $2
-    GROUP BY c.name, b.threshold
+    GROUP BY c.name, b.threshold, b.period
   `, [token, type])
 
   return agg.rows;

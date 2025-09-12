@@ -1,7 +1,7 @@
-import Overview from '../components/Overview'
-import TransactionHistory from '../components/TransactionHistory'
-import TrendLine from '../components/TrendLine'
-import BudgetSummary from '../components/BudgetSummary.jsx'
+import Overview from '../components/Overview';
+import TransactionHistory from '../components/TransactionHistory';
+import TrendLine from '../components/TrendLine';
+import BudgetSummary from '../components/BudgetSummary.jsx';
 
 
 
@@ -27,16 +27,16 @@ const Dashboard = () => {
           <TransactionHistory num_transactions={5} />
         </div>
 
-        {/* Exepnse Trendline */}
-        <div className="flex flex-col px-12 py-4 space-y-6">
-          <p>Monthly Spending</p>
-          <TrendLine />
-        </div>
-
         {/* Categogires With Budgets */}
         <div className="flex flex-col px-12 py-4 space-y-6">
           <p>Budget Summary</p>
           <BudgetSummary />
+        </div>
+        {/* Exepnse Trendline */}
+
+        <div className="flex flex-col grow px-12 py-4 space-y-6">
+          <p>Monthly Spending</p>
+          <TrendLine />
         </div>
 
       </div>

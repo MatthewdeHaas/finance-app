@@ -44,7 +44,7 @@ useEffect(() => {
     setChart({
       series: transactions.map((t) => Number(t.volume) || 0),
       options: {
-        labels: transactions.map((t) => String(t.category_name)),
+          labels: transactions.map((t) => String(t.category_name + " - " + (t.period ? t.period.charAt(0).toUpperCase() + t.period.slice(1) : "No budget"))),
           chart: {
             width: '100%',
             height: '75%',
@@ -58,21 +58,12 @@ useEffect(() => {
   if (loading) return <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>;
 
   return (
-    <>
-
-      <Chart 
-        options={chart.options}
-        series={chart.series}
-        type="pie"
-        height={640}
-      />
-      {transactions.map((acc, i) => (
-        <div>
-          {acc.category_name}: ${acc.volume}
-        </div> 
-      ))}
-
-    </>
+    <Chart 
+      options={chart.options}
+      series={chart.series}
+      type="pie"
+      height={640}
+    />
   )
 
 };
