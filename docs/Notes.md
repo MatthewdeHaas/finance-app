@@ -13,16 +13,22 @@
 ## TODO
 
 ### Now:
-- [ ] Dashboard:
+- [x] Dashboard:
   - [x] High level overview:
     - [x] Net balance (sum of all accounts)
     - [x] Total spent this week/month 
     - [x] Budget summary (1/5 budgets are overspending)
   - [x] Five most recent transactions
   - [x] List categories with budgets
-  - [ ] Trend line for spending per day over the month
+  - [x] Trend line for spending per day over the month
+    - [x] Parameterize chart to graph values from back end
+    - [x] Write query that accepts a start date and returns as many rows as the difference between NOW() and that start date, with every row containing the total withdrawal volume for a given day
+- [ ] Budgets
+  - [ ] Monthly spending by account
 
 ### Later:
+- [ ] Smart insights:
+  - [ ] Tell users when they are on the way to overspending
 - [ ] Normalized 'accounts' table
   - [ ] Remove 'balance' column from the 'accounts' table
   - [ ] Adjusted queries that use balance so that it instead sums transactions with the associated account id

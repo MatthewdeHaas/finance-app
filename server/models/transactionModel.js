@@ -48,7 +48,6 @@ const create = async (token, account, amount, category, type) => {
 
 const monthlySpending = async (token) => {
 
-
   const monthlySpending = await pool.query(`
     SELECT 
       ABS(SUM(t.amount)) as amount,
@@ -57,12 +56,48 @@ const monthlySpending = async (token) => {
     INNER JOIN refresh_tokens rt ON rt.user_id = t.user_id
     WHERE rt.token = $1
       AND date_trunc('month', t.date) = date_trunc('month', NOW())
-    AND t.transaction_type = 'Withdrawal';
+      AND t.transaction_type = 'Withdrawal';
   `, [token])
 
   return monthlySpending.rows[0];  
 
 };
 
+const dailyVolume = async (token, startDate) => {
+  
 
-module.exports = { get, create, monthlySpending };
+  const dailyVolume = await pool.query(`
+    WITH days AS (
+      SELECT generate_series(
+        $2::date,
+        CURRENT_DATE,
+        interval '1 day'
+      )::date AS day
+    ),
+    agg AS (
+      SELECT 
+        t.date::date AS day,
+        ABS(SUM(t.amount)) as day_amount
+      FROM transactions t
+      INNER JOIN refresh_tokens rt 
+        ON t.user_id = rt.user_id
+      WHERE rt.token = $1
+        AND t.transaction_type = 'Withdrawal'
+        AND t.date > $2
+      GROUP BY t.date::date
+      ORDER BY day
+    )
+    SELECT 
+      d.day,
+      COALESCE(a.day_amount, 0) AS day_amount
+    FROM days d
+    LEFT JOIN agg a
+      on d.day = a.day
+    ORDER BY d.day;
+  `, [token, startDate])
+
+  return dailyVolume.rows;  
+};
+
+
+module.exports = { get, create, monthlySpending, dailyVolume };

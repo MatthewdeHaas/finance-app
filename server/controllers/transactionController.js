@@ -26,4 +26,17 @@ const monthlySpending = async (req, res, next) => {
 
 };
 
-module.exports = { getTransactions, monthlySpending };
+const dailyVolume = async (req, res, next) => {
+
+    try {
+      const token = req.cookies.refreshToken;
+      const { startDate } = req.body;
+      const dailyVolume = await Transaction.dailyVolume(token, startDate);
+      res.status(201).json(dailyVolume);
+  } catch (err) {
+      next(err);
+  }
+
+};
+
+module.exports = { getTransactions, monthlySpending, dailyVolume};

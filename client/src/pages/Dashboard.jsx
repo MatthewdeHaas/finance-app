@@ -4,7 +4,6 @@ import TrendLine from '../components/TrendLine';
 import BudgetSummary from '../components/BudgetSummary.jsx';
 
 
-
 const Dashboard = () => {
   return (
     <div className="flex flex-col text-center">
@@ -36,7 +35,7 @@ const Dashboard = () => {
 
         <div className="flex flex-col grow px-12 py-4 space-y-6">
           <p>Monthly Spending</p>
-          <TrendLine />
+          <TrendLine startDate={`${ new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString() }`} />
         </div>
 
       </div>
