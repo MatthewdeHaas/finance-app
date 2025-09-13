@@ -8,13 +8,14 @@ const create = async (token, name) => {
       SELECT u.id, $2
       FROM users u
       INNER JOIN refresh_tokens rt ON u.id = rt.user_id
-      WHERE rt.token = $1;
+      WHERE rt.token = $1
         AND NOT EXISTS (
         SELECT 1
         FROM accounts a
         WHERE a.user_id = u.id
           AND a.name = $2
-      );
+      )
+      RETURNING *;
     `, [token, name]);
 
     return result.rows;

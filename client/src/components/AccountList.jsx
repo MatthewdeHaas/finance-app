@@ -6,7 +6,7 @@ const AccountList = () => {
 
   useEffect(() => {
 
-    fetch("http://localhost:5001/api/account", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/account`, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",

@@ -5,6 +5,8 @@ import App from './App';
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+console.log(`\nAPI URL: ${ process.env.REACT_APP_API_URL }\n`)
 root.render(
   <BrowserRouter>
     <App />

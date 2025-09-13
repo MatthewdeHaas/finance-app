@@ -16,7 +16,7 @@ const UpdateBalance = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5001/api/account/update", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/account/update`, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         credentials: "include",
@@ -38,7 +38,7 @@ const UpdateBalance = () => {
 
   useEffect(() => {
 
-    fetch("http://localhost:5001/api/account", { 
+    fetch(`${process.env.REACT_APP_API_URL}/api/account`, { 
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
@@ -51,7 +51,7 @@ const UpdateBalance = () => {
         console.log("Error fetching accounts")
       });
 
-    fetch("http://localhost:5001/api/category", { 
+    fetch(`${process.env.REACT_APP_API_URL}/api/category`, { 
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",

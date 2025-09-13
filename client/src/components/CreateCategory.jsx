@@ -8,7 +8,7 @@ const CreateCategory = () => {
   const create = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5001/api/category/create", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/category/create`, {
       method: "POST",
       credentials: "include",
       headers: { 'Content-Type': 'application/json' },

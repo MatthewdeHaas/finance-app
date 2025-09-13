@@ -7,7 +7,7 @@ const TransactionHistory = (props) => {
 
   useEffect(() => {
 
-    fetch("http://localhost:5001/api/transaction", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/transaction`, {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",

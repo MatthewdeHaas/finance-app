@@ -5,6 +5,8 @@ import BudgetSummary from '../components/BudgetSummary.jsx';
 
 
 const Dashboard = () => {
+
+
   return (
     <div className="flex flex-col text-center">
 

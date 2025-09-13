@@ -8,7 +8,7 @@ const Overview = () => {
 
   useEffect(() => {
    
-    fetch("http://localhost:5001/api/account/net-balance", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/account/net-balance`, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
@@ -20,7 +20,7 @@ const Overview = () => {
         console.error("Error fetching net balance");
       });
 
-    fetch("http://localhost:5001/api/transaction/monthly-spending", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/transaction/monthly-spending`, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
@@ -32,7 +32,7 @@ const Overview = () => {
         console.error("Error fetching monthly spending");
       });
 
-    fetch("http://localhost:5001/api/budget/past-threshold-num", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/budget/past-threshold-num`, {
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",

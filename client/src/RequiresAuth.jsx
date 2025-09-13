@@ -8,7 +8,7 @@ const useAuth = () => {
 
     const checkAuth = async () => {
 
-      const me = await fetch('http://localhost:5001/api/auth/me', {
+      const me = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/me`, {
         method: "GET", 
         credentials: 'include' 
       })

@@ -11,7 +11,7 @@ const CreateBudget = () => {
   const create = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:5001/api/budget/create", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/budget/create`, {
       method: "POST",
       credentials: "include",
       headers: { 'Content-Type': 'application/json' },
@@ -27,7 +27,7 @@ const CreateBudget = () => {
 
   useEffect(() => {
 
-    fetch("http://localhost:5001/api/category", { 
+    fetch(`${process.env.REACT_APP_API_URL}/api/category`, { 
       method: "GET",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
@@ -118,7 +118,7 @@ const CreateBudget = () => {
           type="submit"
           variant="outlined"
         >
-          Create Category
+          Create Budget
         </Button>
 
       </FormControl>

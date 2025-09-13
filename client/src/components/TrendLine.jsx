@@ -55,7 +55,7 @@ const TrendLine = (props) => {
 
   useEffect(() => {
 
-    fetch("http://localhost:5001/api/transaction/daily-volume", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/transaction/daily-volume`, {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",

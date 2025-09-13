@@ -6,7 +6,7 @@ const useAuth = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const res = await fetch("http://localhost:5001/api/auth/me", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/me`, {
         credentials: "include",
       });
 

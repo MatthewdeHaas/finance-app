@@ -5,7 +5,7 @@ const BudgetSummary = () => {
 
   useEffect(() => {
 
-    fetch("http://localhost:5001/api/category/aggregate", { 
+    fetch(`${process.env.REACT_APP_API_URL}/api/category/aggregate`, { 
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
