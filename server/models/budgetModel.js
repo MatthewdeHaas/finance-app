@@ -37,29 +37,34 @@ const create = async (token, category, threshold, period) => {
 const pastThreshold = async (token) => {
 
   const budgets = await pool.query(` 
-  WITH agg AS (
-    SELECT 
-      ABS(SUM(t.amount)) as volume, 
-      b.threshold as threshold, 
-      COUNT(b.threshold) as num_past_threshold, 
-      c.name as category_name
-    FROM categories c
-    INNER JOIN refresh_tokens rt ON c.user_id = rt.user_id
-    INNER JOIN transactions t ON c.id = t.category_id
-    INNER JOIN budgets b ON b.user_id = c.user_id AND b.category_id = c.id
-    WHERE rt.token = $1 
-      AND t.transaction_type = 'Withdrawal'
-    GROUP BY c.name, b.threshold
-    HAVING ABS(SUM(t.amount)) > b.threshold
+    WITH agg AS (
+      SELECT 
+        ABS(SUM(t.amount)) as volume, 
+        b.threshold as threshold, 
+        COUNT(b.threshold) as num_past_threshold, 
+        c.name as category_name
+      FROM categories c
+      INNER JOIN refresh_tokens rt ON c.user_id = rt.user_id
+      INNER JOIN transactions t ON c.id = t.category_id
+      INNER JOIN budgets b ON b.user_id = c.user_id AND b.category_id = c.id
+      WHERE rt.token = $1 
+        AND t.transaction_type = 'Withdrawal'
+      GROUP BY c.name, b.threshold
+      HAVING ABS(SUM(t.amount)) > b.threshold
     )
-    SELECT agg.*, totals.total_budgets_num
-    FROM agg
-    CROSS JOIN (
+    SELECT 
+      COALESCE(agg.volume, 0) AS volume,
+      agg.threshold,
+      COALESCE(agg.num_past_threshold, 0) AS num_past_threshold,
+      agg.category_name,
+      totals.total_budgets_num
+    FROM (
       SELECT COUNT(*) AS total_budgets_num
       FROM budgets b
       INNER JOIN refresh_tokens rt ON b.user_id = rt.user_id
       WHERE rt.token = $1
-    ) totals;
+    ) totals
+    LEFT JOIN agg ON TRUE;
 
   `, [token]);
 
