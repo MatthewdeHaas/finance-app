@@ -52,8 +52,7 @@ const login = async (req, res, next) => {
 
     const storedRefreshToken = await User.getRefreshToken(username);
 
-
-    if (storedRefreshToken.length < 1) {
+    if (!storedRefreshToken || storedRefreshToken.length < 1) {
 
       const newRefreshToken = generateRefreshToken();
       await Token.save(user.id, newRefreshToken);

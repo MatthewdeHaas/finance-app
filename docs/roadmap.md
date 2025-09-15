@@ -1,4 +1,4 @@
-# Roadmap
+# Roadmap - MVP done
 
 
 1. Write schema - DONE
@@ -19,15 +19,15 @@
   - [x] Form for depositing/withdrawing
 
 5. Add budget page
-  - [ ] Pie chart for expenses by categories
-  - [ ] Form for creating limits by category
-  - [ ] Select category and visualize limit (if exists)
+  - [x] Pie chart for expenses by categories
+  - [x] Form for creating limits by category
+  - [x] Select category and visualize limit (if exists)
 
 6. Add dashboard
-  - [ ] Show summary for each, basic budget info
+  - [x] Show summary for each, basic budget info
 
 
 7. Go into production
-  - [ ] Publish as subdomain on personal website
+  - [x] Publish as subdomain on personal website
 
 
