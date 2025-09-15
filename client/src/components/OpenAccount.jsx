@@ -1,21 +1,21 @@
 import { useState } from 'react';
+import { useAccounts } from '../AccountsContext';
 import { FormControl, TextField, Button} from '@mui/material';
 
 
 const OpenAccount = () => {
-
   const [accountName, setAccountName] = useState("");
+  const [message, setMessage] = useState("");
   
-  const create = async (e) => {
+  const { addAccount } = useAccounts();
+
+  const create = async (e) => { 
     e.preventDefault();
 
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/account/create`, {
-      method: "POST",
-      credentials: "include", 
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: accountName })
-    });
+    addAccount(accountName);
 
+    setAccountName("");
+    setMessage("Account Opened!")
   }
 
   return (
@@ -42,6 +42,8 @@ const OpenAccount = () => {
           </Button>
 
         </FormControl> 
+
+        <div>{message}</div>
 
       </form>
 

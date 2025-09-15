@@ -1,26 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useAccounts } from '../AccountsContext';
 
 const AccountList = () => {
-  const [accounts, setAccounts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const { accounts } = useAccounts();
+  const { accounts, loading } = useAccounts();
 
-  useEffect(() => {
-
-    fetch(`${process.env.REACT_APP_API_URL}/api/account`, {
-      method: "GET",
-      headers: { 'Content-Type': 'application/json' },
-      credentials: "include",
-    }).then(res => res.json())
-      .then(data => {
-        setAccounts(data);
-        setLoading(false);
-      })
-    .catch(err => {
-        console.error("Error fetching accounts");
-        setLoading(false);
-      });
-
-  }, []); // '[]' means this only runs when the component mounts 
 
   if (loading) return <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>;
 
