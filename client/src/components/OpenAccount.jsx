@@ -12,7 +12,7 @@ const OpenAccount = () => {
   const create = async (e) => { 
     e.preventDefault();
 
-    addAccount(accountName);
+    await addAccount(accountName);
 
     setAccountName("");
     setMessage("Account Opened!")

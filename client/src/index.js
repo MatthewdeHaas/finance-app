@@ -4,14 +4,17 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import "./index.css";
 import { AccountsProvider } from './AccountsContext'
+import { TransactionsProvider } from './TransactionsContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 console.log(`\nAPI URL: ${ process.env.REACT_APP_API_URL }\n`)
 root.render(
   <AccountsProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <TransactionsProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </TransactionsProvider>
   </AccountsProvider>
 );

@@ -37,36 +37,42 @@ const create = async (token, category, threshold, period) => {
 const pastThreshold = async (token) => {
 
   const budgets = await pool.query(` 
-    WITH agg AS (
-      SELECT 
-        ABS(SUM(t.amount)) as volume, 
-        b.threshold as threshold, 
-        COUNT(b.threshold) as num_past_threshold, 
-        c.name as category_name
-      FROM categories c
-      INNER JOIN refresh_tokens rt ON c.user_id = rt.user_id
-      INNER JOIN transactions t ON c.id = t.category_id
-      INNER JOIN budgets b ON b.user_id = c.user_id AND b.category_id = c.id
-      WHERE rt.token = $1 
-        AND t.transaction_type = 'Withdrawal'
-      GROUP BY c.name, b.threshold
-      HAVING ABS(SUM(t.amount)) > b.threshold
-    )
-    SELECT 
-      COALESCE(agg.volume, 0) AS volume,
-      agg.threshold,
-      COALESCE(agg.num_past_threshold, 0) AS num_past_threshold,
-      agg.category_name,
-      totals.total_budgets_num
-    FROM (
-      SELECT COUNT(*) AS total_budgets_num
-      FROM budgets b
-      INNER JOIN refresh_tokens rt ON b.user_id = rt.user_id
-      WHERE rt.token = $1
-    ) totals
-    LEFT JOIN agg ON TRUE;
-
+    SELECT
+      COUNT(b.id) AS total_budgets_num,
+      COUNT(
+        CASE 
+          WHEN ABS(t_sum.volume) > b.threshold THEN 1
+          ELSE NULL
+        END
+      ) AS num_past_threshold,
+      COALESCE(
+        JSON_AGG(
+          JSON_BUILD_OBJECT(
+            'category_id', c.id,
+            'category_name', c.name,
+            'volume', t_sum.volume,
+            'threshold', b.threshold
+          )
+        ) FILTER (WHERE ABS(t_sum.volume) > b.threshold),
+        '[]'
+      ) AS over_budget_categories
+    FROM categories c
+    JOIN refresh_tokens rt
+      ON c.user_id = rt.user_id
+      AND rt.token = $1
+    LEFT JOIN budgets b
+      ON b.user_id = c.user_id
+      AND b.category_id = c.id
+    LEFT JOIN (
+      SELECT category_id, COALESCE(SUM(amount::numeric),0) AS volume
+      FROM transactions
+      WHERE transaction_type = 'Withdrawal'
+      GROUP BY category_id
+    ) t_sum
+      ON t_sum.category_id = c.id;
   `, [token]);
+
+  console.log(`\n${JSON.stringify(budgets.rows, 2, null)}\n`);
 
   return budgets.rows[0];
   

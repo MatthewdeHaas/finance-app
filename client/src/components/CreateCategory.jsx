@@ -4,6 +4,7 @@ import { FormControl, TextField, Button} from '@mui/material';
 
 const CreateCategory = () => {
   const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
 
   const create = async (e) => {
     e.preventDefault();
@@ -14,6 +15,7 @@ const CreateCategory = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: name })
     });
+    setMessage(`${name} added as a new category`)
 
   };
 
@@ -42,6 +44,8 @@ const CreateCategory = () => {
         </Button>
 
       </FormControl> 
+  
+      <div>{message}</div>
 
     </form>
   );

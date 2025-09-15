@@ -44,7 +44,7 @@ export function AccountsProvider({ children }) {
 
     console.log(`\n${ JSON.stringify(newAccount) }\n`)
 
-    setAccounts((prev) => [...prev, newAccount[0]]);
+    await fetchAccounts();
     setLoading(false);
   };
 

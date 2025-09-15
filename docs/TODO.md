@@ -14,12 +14,12 @@
 ### Now:
 - [ ] Add Context new
   - [x] Accounts
-  - [ ] Transactions
+  - [x] Transactions
   - [ ] 
 - [ ] Success message on form submissions
-  - [ ] Accounts
-  - [ ] Category
-  - [ ] Deposit/Withdrawal
+  - [x] Accounts
+  - [x] Category
+  - [x] Deposit/Withdrawal
   - [ ] Budget
 
 ### Later:

@@ -1,32 +1,15 @@
 import { useState, useEffect } from 'react';
+import { useTransactions } from '../TransactionsContext';
 
 
 const TransactionHistory = (props) => {
-  const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-
-    fetch(`${process.env.REACT_APP_API_URL}/api/transaction`, {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      credentials: "include",
-      body: JSON.stringify({ num: props.num_transactions })
-    }).then(res => res.json())
-      .then(data => {
-        setTransactions(data);
-        setLoading(false);
-      })
-    .catch(err => {
-        console.error("Error fetching transactions");
-        setLoading(false);
-      });
-
-  }, [])
+  var { transactions, loading } = useTransactions();
   
   if (loading) return <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>;
 
   if (transactions.length === 0) return <p>No Transactions made</p>;
+
+  if (props.num_transactions) transactions = transactions.slice(0, props.num_transactions)
 
   return (
   

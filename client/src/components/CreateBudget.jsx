@@ -6,6 +6,7 @@ const CreateBudget = () => {
   const [categories, setCategories] = useState([]);
   const [threshold, setThreshold] = useState("");
   const [period, setPeriod] = useState("");
+  const [message, setMessage] = useState("");
 
 
   const create = async (e) => {
@@ -22,6 +23,7 @@ const CreateBudget = () => {
       })
     });
 
+    setMessage(`Budget of ${threshold} placed on ${selectedCategory}`)
   };
 
 
@@ -122,6 +124,9 @@ const CreateBudget = () => {
         </Button>
 
       </FormControl>
+
+    <div>{message}</div>
+
     </form>
   );
 

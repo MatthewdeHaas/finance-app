@@ -1,4 +1,5 @@
 import { useState, useEffect} from 'react'; 
+import { useTransactions } from '../TransactionsContext';
 import { FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField, Radio, RadioGroup, Button} from '@mui/material';
 
 const UpdateBalance = () => {
@@ -9,30 +10,22 @@ const UpdateBalance = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const [amount, setAmount] = useState("");
-  const [transactionType, setTransactionType] = useState(""); // default value
+  const [transactionType, setTransactionType] = useState("");
 
+  const [message, setMessage] = useState("");
+
+  const { addTransaction } = useTransactions();
   
   const updateAccount = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/account/update`, {
-        method: "PUT",
-        headers: { 'Content-Type': 'application/json' },
-        credentials: "include",
-        body: JSON.stringify({
-          account: selectedAccount,
-          amount: amount,
-          category: selectedCategory,
-          type: transactionType
-        })
+    await addTransaction({
+      account: selectedAccount,
+      amount: amount,
+      category: selectedCategory,
+      type: transactionType
       });
-
-      const data = await res.json();
-      console.log("Updated account balance!");
-    } catch (err) {
-      console.error("Error updating account balance", err);
-    }
+    transactionType == "Withdrawal" ? setMessage(`$${amount} withdrawn from ${selectedAccount}`) : setMessage(`$${amount} deposited into ${selectedAccount}`)
 
   }
 
@@ -164,6 +157,7 @@ const UpdateBalance = () => {
         </FormControl>
       </FormControl>    
 
+      <div>{message}</div>
     </form>
 
   );
