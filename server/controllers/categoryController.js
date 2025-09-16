@@ -38,6 +38,7 @@ const aggregateAmountByCategory = async (req, res, next) => {
   try { 
     const token = req.cookies.refreshToken;
     const { type, period } = req.body;
+    console.log(JSON.stringify(req.body));
     const result = await Category.aggregateAmountByCategory(token, type, period);
     res.status(201).json(result);
   } catch (err) {

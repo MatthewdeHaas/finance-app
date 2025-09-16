@@ -62,6 +62,8 @@ const BarGraph = () => {
 
   useEffect(() => {
 
+    console.log("HERE", period)
+
     fetch(`${process.env.REACT_APP_API_URL}/api/category/aggregate`, { 
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
@@ -96,7 +98,6 @@ const BarGraph = () => {
           <RadioGroup
             row 
             name="period-radio-group"
-            required
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
           >

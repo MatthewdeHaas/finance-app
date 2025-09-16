@@ -72,8 +72,6 @@ const pastThreshold = async (token) => {
       ON t_sum.category_id = c.id;
   `, [token]);
 
-  console.log(`\n${JSON.stringify(budgets.rows, 2, null)}\n`);
-
   return budgets.rows[0];
   
 };

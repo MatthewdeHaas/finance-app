@@ -48,7 +48,7 @@ const aggregateAmountByCategory = async (token, type, period) => {
     LEFT JOIN budgets b ON b.user_id = c.user_id AND b.category_id = c.id
     WHERE rt.token = $1
       AND t.transaction_type = $2
-      AND (period = $3 OR $3 IS NULL)
+      AND (period = COALESCE(NULLIF($3, ''), period))
     GROUP BY c.name, b.threshold, b.period
   `, [token, type, period])
 
