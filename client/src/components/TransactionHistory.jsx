@@ -13,7 +13,7 @@ const TransactionHistory = (props) => {
 
   return (
   
-    <>
+    <div>
       {
         transactions.map((acc, i) => (
           <div
@@ -55,7 +55,7 @@ const TransactionHistory = (props) => {
           )
         )
       }
-    </>
+    </div>
 
   )
 

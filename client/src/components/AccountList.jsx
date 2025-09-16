@@ -13,7 +13,9 @@ const AccountList = () => {
   return (
     <>
       {accounts.map((acc, i) => (
-        <div key={i} className="p-2 border-2 border-neutral-500 rounded-md">
+        <div key={i} 
+            className="p-3 border-b border-neutral-300 grid grid-cols-[1fr_auto] gap-y-1 gap-x-4"
+>
           <p className="font-bold">{acc.name}</p>
           <span className="flex flex-row space-x-2">
             <p>Balance: </p>
