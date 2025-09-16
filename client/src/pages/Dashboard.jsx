@@ -13,7 +13,7 @@ return (
       <h1 className="text-4xl font-bold text-center py-6">Dashboard</h1>
 
       {/* Main Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 lg:px-12 pb-12">
+      <div className="flex flex-row px-12 space-x-6">
         
         {/* Left column: Overview + Budget Summary */}
         <div className="flex flex-col space-y-6">
@@ -28,16 +28,17 @@ return (
             <h2 className="text-xl font-semibold mb-4">Budget Summary</h2>
             <BudgetSummary />
           </div>
-        </div>
 
-        {/* Middle column: Recent Transactions */}
-        <div className="bg-white rounded-2xl shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">Recent Transactions</h2>
-          <TransactionHistory num_transactions={5} />
+          {/* Middle column: Recent Transactions */}
+          <div className="bg-white rounded-2xl shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">Recent Transactions</h2>
+            <TransactionHistory num_transactions={3} />
+          </div>
+
         </div>
 
         {/* Right column: Trendline */}
-        <div className="bg-white rounded-2xl shadow-md p-6">
+        <div className="bg-white grow rounded-2xl shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">Monthly Spending</h2>
           <TrendLine
             startDate={`${new Date(

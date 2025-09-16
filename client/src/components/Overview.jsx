@@ -49,26 +49,40 @@ const Overview = () => {
 
   return (
 
-    <div className="flex flex-col">
-
+    <div className="flex flex-col divide-y divide-neutral-500">
       {/* Net Balance */}
-      <span className="flex flex-row space-x-2">
-        <p className="font-bold">Net balance:</p>
-        <p>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(netBalance.amount)}</p>
-      </span>
+      <div className="grid grid-cols-[1fr_auto] items-center py-1 gap-2">
+        <p className="font-bold break-words">Net balance:</p>
+        <p>
+          {new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          }).format(netBalance.amount)}
+        </p>
+      </div>
 
       {/* Monthly Spending */}
-      <span className="flex flex-row space-x-2">
-        <p className="font-bold">Spent this {new Date().toLocaleString('en-US', { month: 'long' })}:</p>
-        <p>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(monthlySpending.amount)}</p>
-      </span>
+      <div className="grid grid-cols-[1fr_auto] items-center py-1 gap-2">
+        <p className="font-bold break-words">
+          Spent this{" "}
+          {new Date().toLocaleString("en-US", { month: "long" })}:
+        </p>
+        <p>
+          {new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+          }).format(monthlySpending.amount)}
+        </p>
+      </div>
 
       {/* Budgets over limit */}
-      <span className="flex flex-row space-x-2">
-        <p className="font-bold">Budgets past threshold:</p>
-        <p> {budgetsPastThreshold.num_past_threshold}/{budgetsPastThreshold.total_budgets_num}</p>
-      </span>
-
+      <div className="grid grid-cols-[1fr_auto] items-center py-1 gap-2">
+        <p className="font-bold break-words">Budgets past threshold:</p>
+        <p>
+          {budgetsPastThreshold.num_past_threshold}/
+          {budgetsPastThreshold.total_budgets_num}
+        </p>
+      </div>
     </div>
 
   )

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { FormControl, TextField, Button, Select, InputLabel, MenuItem, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { FormControl, TextField, Button, Select, InputLabel, MenuItem, RadioGroup, FormControlLabel, Radio, Box, Typography, } from '@mui/material';
 
-const CreateBudget = () => {
+const CreateBudget = ({
+
+}) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [threshold, setThreshold] = useState("");
@@ -23,7 +25,7 @@ const CreateBudget = () => {
       })
     });
 
-    setMessage(`Budget of ${threshold} placed on ${selectedCategory}`)
+    setMessage(`Budget of $${threshold} placed on ${selectedCategory}`)
   };
 
 
@@ -45,89 +47,93 @@ const CreateBudget = () => {
   }, []);
   
 
-  return (
-    <form onSubmit={create}>
-      <FormControl>
-    
-        <FormControl>
+return (
+    <Box
+      component="form"
+      onSubmit={create}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
+        p: 3,
+        border: "1px solid",
+        borderColor: "grey.300",
+        borderRadius: 2,
+        backgroundColor: "background.paper",
+        maxWidth: 400,
+        mx: "auto",
+      }}
+    >
+      <Typography variant="h6" fontWeight="bold" textAlign="center">
+        Create New Budget
+      </Typography>
 
-          {/* Category */}
-          <InputLabel>Category</InputLabel>
-          <Select
-            id="category-select"
-            required
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            label="Category"
-          >
-            {categories.map((acc, i) => (   
-            <MenuItem key={i} value={acc.name}>{acc.name}</MenuItem>
-              )
-            )}
-          </Select>
-
-        </FormControl>
-
-        {/* Limit */}
-        <TextField
-          label="Threshold"
-          type="number"
-          value={threshold}
-          required
-          onChange={(e) => setThreshold(e.target.value)}
-          fullWidth
-          inputProps={{ min: 0}}
-          sx={{
-            "& input[type=number]::-webkit-outer-spin-button": {
-              WebkitAppearance: "none",
-              margin: 0,
-            },
-            "& input[type=number]::-webkit-inner-spin-button": {
-              WebkitAppearance: "none",
-              margin: 0,
-            },
-            "& input[type=number]": {
-              MozAppearance: "textfield",
-            },
-          }}
-        >      
-        </TextField>
-
-        <FormControl>
-
-          {/* period */}
-          <RadioGroup
-            row 
-            name="period"
-            value={period}
-            onChange={(e) => setPeriod(e.target.value)}
-          >
-            <FormControlLabel 
-              value="weekly" 
-              control={<Radio required />} 
-              label="Weekly" 
-            />
-            <FormControlLabel 
-              value="monthly" 
-              control={<Radio />} 
-              label="Monthly" 
-            />
-          </RadioGroup>
-
-        </FormControl>
-
-        <Button
-          type="submit"
-          variant="outlined"
+      {/* Category */}
+      <FormControl fullWidth required>
+        <InputLabel id="category-select-label">Category</InputLabel>
+        <Select
+          labelId="category-select-label"
+          id="category-select"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          Create Budget
-        </Button>
-
+          {categories.map((acc, i) => (
+            <MenuItem key={i} value={acc.name}>
+              {acc.name}
+            </MenuItem>
+          ))}
+        </Select>
       </FormControl>
 
-    <div>{message}</div>
+      {/* Threshold */}
+      <TextField
+        label="Threshold"
+        type="number"
+        value={threshold}
+        required
+        onChange={(e) => setThreshold(e.target.value)}
+        fullWidth
+        inputProps={{ min: 0 }}
+      />
 
-    </form>
+      {/* Period */}
+      <FormControl component="fieldset">
+        <Typography variant="subtitle1" gutterBottom fontWeight="medium">
+          Period
+        </Typography>
+        <RadioGroup
+          row
+          name="period"
+          value={period}
+          onChange={(e) => setPeriod(e.target.value)}
+        >
+          <FormControlLabel value="weekly" control={<Radio />} label="Weekly" />
+          <FormControlLabel value="monthly" control={<Radio />} label="Monthly" />
+        </RadioGroup>
+      </FormControl>
+
+      {/* Submit */}
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        size="large"
+        sx={{ alignSelf: "center", px: 4 }}
+      >
+        Create Budget
+      </Button>
+
+      {/* Feedback */}
+      {message && (
+        <Typography
+          variant="body2"
+          color={"success.main"}
+          textAlign="center"
+        >
+          {message}
+        </Typography>
+      )}
+    </Box>
   );
 
 };

@@ -16,26 +16,40 @@ const TransactionHistory = (props) => {
     <>
       {
         transactions.map((acc, i) => (
-          <div key={i} className="p-2 border-2 border-neutral-500 rounded-md">
-            <span className="flex flex-row space-x-2">
-              <p className="font-bold">Account: </p>
-              <p>{acc.account_name}</p>
-            </span>
-            <span className="flex flex-row space-x-2">
-              <p className="font-bold">Category: </p>
-              <p>{!acc.category_name ? "None" : acc.category_name}</p>
-            </span>
-            <span className="flex flex-row space-x-2">
-              <p>{acc.transaction_type}: </p>
-              <p className={`${ acc.transaction_type === "Deposit" ? "text-green-500" : "text-red-500"}`}>
-              <p>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(acc.amount)}</p>
-              </p>
-            </span>
-            <p>{`${new Date(acc.date).toLocaleDateString("en-US", {
-                  year: "numeric", 
-                  month: "long", 
-                  day: "numeric"})
-            }`}
+          <div
+            key={i}
+            className="p-3 border-b border-neutral-300 grid grid-cols-[1fr_auto] gap-y-1 gap-x-4"
+          >
+            {/* Account */}
+            <p className="font-bold break-words">Account:</p>
+            <p>{acc.account_name}</p>
+
+            {/* Category */}
+            <p className="font-bold break-words">Category:</p>
+            <p>{acc.category_name || "None"}</p>
+
+            {/* Amount */}
+            <p className="font-bold break-words">{acc.transaction_type}:</p>
+            <p
+              className={
+                acc.transaction_type === "Deposit"
+                  ? "text-green-500 font-semibold"
+                  : "text-red-500 font-semibold"
+              }
+            >
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(acc.amount)}
+            </p>
+
+            {/* Date (span full width) */}
+            <p className="col-span-2 text-sm text-neutral-600">
+              {new Date(acc.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
           </div>
           )

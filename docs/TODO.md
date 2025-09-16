@@ -7,9 +7,9 @@
 ### Now:
 - [x] Fix auth in prod
 - [ ] Improve look:
-  - [ ] Dashboard
+  - [x] Dashboard
+  - [x] Budgets
   - [ ] Accounts
-  - [ ] Budgets
 - [ ] Weekly/monthly budgets
   - [ ] Create 'Current week' and 'Current month' toggle
   - [ ] The buttons should only sum from the current week/month - change query for bar graph data

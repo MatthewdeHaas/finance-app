@@ -39,7 +39,9 @@ const TrendLine = (props) => {
           },
           xaxis: {
             type: 'datetime',
-            categories: transactions.map((t) => t.day)
+            categories: transactions.map((t) => new Date(t.day).toLocaleDateString("en-US", {
+                  month: "short", 
+                  day: "numeric"}))
           },
           tooltip: {
             x: {
