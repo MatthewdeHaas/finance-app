@@ -69,7 +69,6 @@ const Overview = () => {
         <p> {budgetsPastThreshold.num_past_threshold}/{budgetsPastThreshold.total_budgets_num}</p>
       </span>
 
-
     </div>
 
   )

@@ -26,7 +26,7 @@ const PieChart = () => {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       credentials: "include",
-      body: JSON.stringify({ type: 'Withdrawal' })
+      body: JSON.stringify({ type: 'Withdrawal', period: null})
     })
     .then(res => res.json())
     .then(data => {

@@ -7,42 +7,47 @@ import BudgetSummary from '../components/BudgetSummary.jsx';
 const Dashboard = () => {
 
 
-  return (
-    <div className="flex flex-col text-center">
+return (
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      {/* Page Title */}
+      <h1 className="text-4xl font-bold text-center py-6">Dashboard</h1>
 
-      <p className="text-4xl font-semi-bold p-2">
-        Dashboard
-      </p>
+      {/* Main Grid Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-6 lg:px-12 pb-12">
+        
+        {/* Left column: Overview + Budget Summary */}
+        <div className="flex flex-col space-y-6">
+          {/* Overview */}
+          <div className="bg-white rounded-2xl shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">Overview</h2>
+            <Overview />
+          </div>
 
-      <div className="flex flex-row justify-between px-24">
-
-        {/* High Level Overview */}
-        <div className="flex flex-col px-12 py-4 space-y-6">
-          <p>Overview</p>
-          <Overview />
+          {/* Budget Summary */}
+          <div className="bg-white rounded-2xl shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">Budget Summary</h2>
+            <BudgetSummary />
+          </div>
         </div>
 
-        {/* Recent Transactions */}
-        <div className="flex flex-col px-12 py-4 space-y-6">
-          <p>Recent Transactions</p>
+        {/* Middle column: Recent Transactions */}
+        <div className="bg-white rounded-2xl shadow-md p-6">
+          <h2 className="text-xl font-semibold mb-4">Recent Transactions</h2>
           <TransactionHistory num_transactions={5} />
         </div>
 
-        {/* Categogires With Budgets */}
-        <div className="flex flex-col px-12 py-4 space-y-6">
-          <p>Budget Summary</p>
-          <BudgetSummary />
+        {/* Right column: Trendline */}
+        <div className="bg-white rounded-2xl shadow-md p-6">
+          <h2 className="text-xl font-semibold mb-4">Monthly Spending</h2>
+          <TrendLine
+            startDate={`${new Date(
+              new Date().getFullYear(),
+              new Date().getMonth(),
+              1
+            ).toISOString()}`}
+          />
         </div>
-        {/* Exepnse Trendline */}
-
-        <div className="flex flex-col grow px-12 py-4 space-y-6">
-          <p>Monthly Spending</p>
-          <TrendLine startDate={`${ new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString() }`} />
-        </div>
-
       </div>
-
-
     </div>
   );
 };
